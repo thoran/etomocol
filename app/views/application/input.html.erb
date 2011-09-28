@@ -1,0 +1,35 @@
+<script>
+$(document).ready(function(){
+	$('#input_form').submit(function(){
+		$.post($(this).attr('action'), {input: $('#input_field').val()},
+			function(output){
+				$('#page').append('<div id="input_validity"></div>')
+				if (output.valid == 'true') {
+					message = 'This input is valid.'
+				} else {
+					message = 'This input is invalid.'
+				} 
+				$('#input_validity').fadeIn(2000, function() {
+					$('#input_validity').html('<h3>' + message + '</h3>');
+				});
+			}
+		);
+		return false;
+	});
+});
+</script>
+
+<div id="page">
+	<div id="form">
+		<form action="/output.json" id="input_form">
+			<ol class="fields">
+				<li>
+					<input type="text" id="input_field" value="input" size="20" onfocus="onFocusTextField(this)" onblur="onBlurTextField(this)">
+				</li>
+				<li>
+					<input type="submit" name="Submit" id ="submit_button">
+				</li>
+			</ol>
+		</form>
+	</div>
+</div>
